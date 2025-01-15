@@ -16,4 +16,8 @@ public interface AccountantDao {
     public String addAccount(int customerBalance, int cid) throws CustomerException;
 
     public String updateCustomer(int customerAccountNumber, String customerAddress) throws CustomerException;
+
+    public String deleteAccount(int customerAccountNumber) throws CustomerException;
+
+    public Customer viewCustomer(String customerAccountNumber) throws CustomerException;
 }

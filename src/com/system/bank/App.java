@@ -3,6 +3,7 @@ package com.system.bank;
 import com.system.bank.dao.AccountantDao;
 import com.system.bank.dao.AccountantDaoImplementation;
 import com.system.bank.entity.Accountant;
+import com.system.bank.entity.Customer;
 import com.system.bank.exception.AccountantException;
 import com.system.bank.exception.CustomerException;
 
@@ -99,6 +100,59 @@ public class App {
                                 catch(CustomerException e) {
                                     e.printStackTrace();
                                 }
+                            }
+                            if(x==3) {
+                                System.out.println("------Remove Account------");
+                                System.out.println("Enter Account Number: ");
+                                int ac = Integer.parseInt(sc.nextLine());
+                                String s = null;
+
+                                try {
+                                    s = ad.deleteAccount(ac);
+                                }
+                                catch(CustomerException e) {
+                                    e.printStackTrace();
+                                }
+
+
+                                if(s!=null)
+                                {
+                                    System.out.println(s);
+                                }
+
+
+                            }
+
+                            if(x==4) {
+                                System.out.println("----------------------Customer Details-------------");
+                                System.out.println("Enter Customer Account Number : ");
+                                String ac = sc.nextLine();
+
+
+                                try{
+                                    Customer cus = ad.viewCustomer(ac);
+
+                                    if(cus!=null) {
+                                        System.out.println("************************");
+                                        System.out.println("Account Number : " + cus.getCustomerAccountNumber());
+                                        System.out.println("Name : " + cus.getCustomerName());
+                                        System.out.println("Balance : " + cus.getCustomerBalance());
+                                        System.out.println("Email : " + cus.getCustomerEmail());
+                                        System.out.println("Password : " + cus.getCustomerPassword());
+                                        System.out.println("Mobile Number : " + cus.getCustomerMobileNo());
+                                        System.out.println("Address : " + cus.getCustomerAddress());
+                                        System.out.println("************************");
+                                    }
+                                    else {
+                                        System.out.println("Account Does Not Exists!! ");
+                                        System.out.println("-------------------------");
+
+                                    }
+                                }
+                                catch(CustomerException e) {
+                                    e.printStackTrace();
+                                }
+
                             }
                         }
 

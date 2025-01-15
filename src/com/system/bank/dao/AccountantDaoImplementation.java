@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import com.system.bank.dbconnection.DataBaseConnection;
 import com.system.bank.entity.Accountant;
 
+import com.system.bank.entity.Customer;
 import com.system.bank.exception.AccountantException;
 import com.system.bank.exception.CustomerException;
 
@@ -150,5 +151,78 @@ public class AccountantDaoImplementation implements AccountantDao{
 
 
         return message;
+    }
+
+
+    @Override
+    public String deleteAccount(int customerAccountNumber) throws CustomerException {
+        // TODO Auto-generated method stub
+
+        String message = null;
+
+        try(Connection conn = DataBaseConnection.provideConnection()){
+            PreparedStatement ps = conn.prepareStatement("delete i from customerinformation i inner join account a on a.cid=i.cid where a.customerAccountNumber = ?");
+
+            ps.setInt(1, customerAccountNumber);
+
+            int x = ps.executeUpdate();
+
+            if(x>0) {
+                System.out.println("Account Deleted Successfully!!");
+            }
+            else{
+                System.out.println("Account Deletion Failed --> Account Not Found!!");
+                System.out.println("-----------------------------------------------");
+            }
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            message = e.getMessage();
+        }
+
+        return message;
+    }
+
+    @Override
+    public Customer viewCustomer(String customerAccountNumber) throws CustomerException {
+        // TODO Auto-generated method stub
+
+        Customer cu = null;
+
+        try(Connection conn = DataBaseConnection.provideConnection()) {
+            PreparedStatement ps = conn.prepareStatement("select * from customerinformation i inner join account a on a.cid = i.cid where customerAccountNumber = ?");
+
+            ps.setString(1, customerAccountNumber);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next())
+            {
+                int accNum = rs.getInt("customerAccountNumber");
+
+                String name = rs.getString("customerName");
+
+                int bal = rs.getInt("customerBalance");
+
+                String mail = rs.getString("customerMail");
+
+                String pass = rs.getString("customerPassword");
+
+                String mobile = rs.getString("customerMobileNo");
+
+                String addr = rs.getString("customerAddress");
+
+
+                cu = new Customer(accNum,name,bal,mail,pass,mobile,addr);
+            }
+            else {
+                throw new CustomerException("Invalid Account Number!!");
+            }
+        }
+        catch(SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return cu;
     }
 }
