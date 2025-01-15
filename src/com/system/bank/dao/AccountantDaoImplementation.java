@@ -90,4 +90,33 @@ public class AccountantDaoImplementation implements AccountantDao{
         return cid;
     }
 
+
+    @Override
+    public String addAccount(int customerBalance, int cid) throws CustomerException {
+        // TODO Auto-generated method stub
+        String message = null;
+
+        try(Connection conn = DataBaseConnection.provideConnection()){
+            PreparedStatement ps = conn.prepareStatement("insert into account(customerBalance,cid) values(?,?)");
+
+            ps.setInt(1,customerBalance);
+            ps.setInt(2,cid);
+
+            int x = ps.executeUpdate();
+
+            if(x>0)
+            {
+                System.out.println("Account Added Successfully!");
+            }
+            else {
+                System.out.println("Insertion of Data Failed!!");
+            }
+        }
+        catch(SQLException e) {
+            System.out.println("SQL Related Exception");
+
+        }
+        return message;
+    }
+
 }

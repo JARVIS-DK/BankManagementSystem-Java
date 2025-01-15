@@ -4,6 +4,7 @@ import com.system.bank.dao.AccountantDao;
 import com.system.bank.dao.AccountantDaoImplementation;
 import com.system.bank.entity.Accountant;
 import com.system.bank.exception.AccountantException;
+import com.system.bank.exception.CustomerException;
 
 import java.util.Scanner;
 
@@ -41,8 +42,51 @@ public class App {
                         }
                         System.out.println("Login Successfully!!");
 
-                        System.out.println("Welcome to : " + a.getAccountantUserName() + "as Admin of Online Banking System");
+                        System.out.println("Welcome : " + a.getAccountantUserName() + " as Admin of Online Banking System");
 
+                        boolean y = true;
+
+                        while(y) {
+                            System.out.println("-----------------------------\r\n"
+                                    + "1. Add New Customer Account \r\n"
+                                    + "2. Update Customer Address \r\n"
+                                    + "3. Delete the Account by Account Number \r\n"
+                                    + "4. View Particular Account Details by Account Number \r\n"
+                                    + "5. View All Account Details \r\n"
+                                    + "6. Account Logout \r\n"
+                            );
+
+                            int x = Integer.parseInt(sc.nextLine());
+
+                            if (x == 1) {
+                                System.out.println("---------New Account---------");
+                                System.out.println("Enter Customer Name: ");
+                                String a1 = sc.nextLine();
+                                System.out.println("Enter Account Opening Balance : ");
+                                int a2 = Integer.parseInt(sc.nextLine());
+                                System.out.println("Enter Customer Email: ");
+                                String a3 = sc.nextLine();
+                                System.out.println("Enter Customer Password: ");
+                                String a4 = sc.nextLine();
+                                System.out.println("Enter Customer Mobile Number: ");
+                                String a5 = sc.nextLine();
+                                System.out.println("Enter Customer Address: ");
+                                String a6 = sc.nextLine();
+
+                                int s1 = -1;
+                                try {
+                                    s1 = ad.addCustomer(a1, a3, a4, a5, a6);
+                                    try {
+                                        ad.addAccount(a2, s1);
+                                    } catch (CustomerException e) {
+                                        e.printStackTrace();
+                                    }
+                                } catch (Exception e) {
+                                    System.out.println(e.getMessage());
+                                }
+                                System.out.println("------------------------------------");
+                            }
+                        }
 
                     } catch(AccountantException e) {
                         System.out.println(e.getMessage());
