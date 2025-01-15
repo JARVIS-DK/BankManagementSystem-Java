@@ -122,7 +122,7 @@ public class AccountantDaoImplementation implements AccountantDao{
 
     @Override
     public String updateCustomer(int customerAccountNumber, String customerAddress) throws CustomerException {
-        // TODO Auto-generated method stub
+
 
         String message = null;
 
@@ -156,7 +156,7 @@ public class AccountantDaoImplementation implements AccountantDao{
 
     @Override
     public String deleteAccount(int customerAccountNumber) throws CustomerException {
-        // TODO Auto-generated method stub
+
 
         String message = null;
 
@@ -185,7 +185,7 @@ public class AccountantDaoImplementation implements AccountantDao{
 
     @Override
     public Customer viewCustomer(String customerAccountNumber) throws CustomerException {
-        // TODO Auto-generated method stub
+
 
         Customer cu = null;
 
@@ -224,5 +224,54 @@ public class AccountantDaoImplementation implements AccountantDao{
         }
 
         return cu;
+    }
+
+    @Override
+    public Customer viewAllCustomer() throws CustomerException {
+
+
+        Customer cus = null;
+
+        try(Connection conn = DataBaseConnection.provideConnection()){
+            PreparedStatement ps = conn.prepareStatement("select * from customerinformation i inner join account a on a.cid=i.cid");
+
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next())
+            {
+                int accNum = rs.getInt("customerAccountNumber");
+
+                String name = rs.getString("customerName");
+
+                int bal = rs.getInt("customerBalance");
+
+                String mail = rs.getString("customerMail");
+
+                String pass = rs.getString("customerPassword");
+
+                String mobile = rs.getString("customerMobileNo");
+
+                String addr = rs.getString("customerAddress");
+
+
+                System.out.println("************************");
+                System.out.println("Account Number : " + accNum);
+                System.out.println("Name : " + name);
+                System.out.println("Balance : " + bal);
+                System.out.println("Email : " + mail);
+                System.out.println("Password : " + pass);
+                System.out.println("Mobile Number : " + mobile);
+                System.out.println("Address : " + addr);
+                System.out.println("************************");
+
+                cus = new Customer(accNum,name,bal,mail,pass,mobile,addr);
+
+            }
+        }
+        catch(SQLException e) {
+            throw new CustomerException("Invalid Account Number!!");
+        }
+
+        return cus;
     }
 }

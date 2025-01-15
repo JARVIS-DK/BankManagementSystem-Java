@@ -20,4 +20,6 @@ public interface AccountantDao {
     public String deleteAccount(int customerAccountNumber) throws CustomerException;
 
     public Customer viewCustomer(String customerAccountNumber) throws CustomerException;
+
+    public Customer viewAllCustomer() throws CustomerException;
 }

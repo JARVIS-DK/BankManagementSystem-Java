@@ -154,6 +154,18 @@ public class App {
                                 }
 
                             }
+
+                            if(x==5) {
+
+                                try {
+                                    System.out.println("------------------All Customer List-----------------");
+
+                                    Customer cu = ad.viewAllCustomer();
+                                }
+                                catch(CustomerException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         }
 
                     } catch(AccountantException e) {
