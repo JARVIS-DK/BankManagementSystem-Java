@@ -7,8 +7,9 @@ import com.system.bank.exception.CustomerException;
 
 public interface AccountantDao {
 
-    public Accountant LoginAccountant(String acconttantUsername, String accountantPassword) throws AccountantException;
+    public Accountant LoginAccountant(String accountantUsername, String accountantPassword) throws AccountantException;
 
 
-
+    int addCustomer(String customerName, String customerMail, String customerPassword, String customerMobileNo,
+                    String customerAddress) throws CustomerException;
 }

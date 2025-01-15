@@ -9,6 +9,7 @@ import com.system.bank.dbconnection.DataBaseConnection;
 import com.system.bank.entity.Accountant;
 
 import com.system.bank.exception.AccountantException;
+import com.system.bank.exception.CustomerException;
 
 
 public class AccountantDaoImplementation implements AccountantDao{
@@ -44,6 +45,49 @@ public class AccountantDaoImplementation implements AccountantDao{
         return acc;
     }
 
+    @Override
+    public int addCustomer(String customerName, String customerMail, String customerPassword, String customerMobileNo,
+                           String customerAddress) throws CustomerException {
 
+
+        int cid = -1;
+        try(Connection conn = DataBaseConnection.provideConnection()) {
+            PreparedStatement ps = conn.prepareStatement("insert into customerinformation (customerName,customerMail,customerPassword, customerMobileNo, customerAddress) values(?,?,?,?,?)");
+
+            ps.setString(1, customerName);
+            ps.setString(2, customerMail);
+            ps.setString(3, customerPassword);
+            ps.setString(4, customerMobileNo);
+            ps.setString(5, customerAddress);
+
+            int x = ps.executeUpdate();
+
+            if(x>0) {
+                PreparedStatement ps2 = conn.prepareStatement("select cid from customerinformation where customerMail = ? and customerMobileNo = ?");
+                ps2.setString(1, customerMail);
+                ps2.setString(2, customerMobileNo);
+
+                ResultSet rs = ps2.executeQuery();
+
+                if(rs.next())
+                {
+                    cid = rs.getInt("cid");
+                }
+                else
+                {
+                    System.out.println("Inserted Data is Incorrect Please Try Again!!");
+                }
+
+            }
+//			else {
+//				System.out.println("Can't Able To Add New Customer!!");
+//			}
+        }
+        catch(SQLException e) {
+            System.out.println("SQL Query Related Exception ");
+
+        }
+        return cid;
+    }
 
 }
