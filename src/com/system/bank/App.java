@@ -86,6 +86,20 @@ public class App {
                                 }
                                 System.out.println("------------------------------------");
                             }
+                            if(x==2) {
+                                System.out.println("Update Customer Address");
+                                System.out.println("Enter Customer Account Number: ");
+                                int u = Integer.parseInt(sc.nextLine());
+                                System.out.println("Enter New Address: ");
+                                String u2 = sc.nextLine();
+
+                                try {
+                                    String mes = ad.updateCustomer(u, u2);
+                                }
+                                catch(CustomerException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         }
 
                     } catch(AccountantException e) {

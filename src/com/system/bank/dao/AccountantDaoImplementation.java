@@ -93,7 +93,7 @@ public class AccountantDaoImplementation implements AccountantDao{
 
     @Override
     public String addAccount(int customerBalance, int cid) throws CustomerException {
-        // TODO Auto-generated method stub
+
         String message = null;
 
         try(Connection conn = DataBaseConnection.provideConnection()){
@@ -119,4 +119,36 @@ public class AccountantDaoImplementation implements AccountantDao{
         return message;
     }
 
+    @Override
+    public String updateCustomer(int customerAccountNumber, String customerAddress) throws CustomerException {
+        // TODO Auto-generated method stub
+
+        String message = null;
+
+        try(Connection conn = DataBaseConnection.provideConnection()) {
+
+            PreparedStatement ps = conn.prepareStatement("update customerinformation i inner join account a on i.cid=a.cid and a.customerAccountNumber = ? set i.customerAddress = ?");
+
+            ps.setInt(1, customerAccountNumber);
+            ps.setString(2, customerAddress);
+
+            int x = ps.executeUpdate();
+
+            if(x>0) {
+                System.out.println("Address Updated Successfully!");
+            }
+            else
+            {
+                System.out.println("Can't Able Update the Address");
+                System.out.println("-----------------------------");
+            }
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+            message = e.getMessage();
+        }
+
+
+        return message;
+    }
 }
