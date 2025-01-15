@@ -166,7 +166,12 @@ public class App {
                                     e.printStackTrace();
                                 }
                             }
+                            if(x==6) {
+                                System.out.println("Account Logout Successful!!");
+                                y = false;
+                            }
                         }
+                        break;
 
                     } catch(AccountantException e) {
                         System.out.println(e.getMessage());
