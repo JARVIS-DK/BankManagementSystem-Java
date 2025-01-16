@@ -228,6 +228,21 @@ public class App {
                                 System.out.println(cd.viewBalance(accountNumber));
                                 System.out.println("-----------------------------");
                             }
+                            if(x==3) {
+                                System.out.println("-----------------Withdraw---------------");
+                                System.out.println("Enter the Amount to Withdraw : ");
+                                int am = Integer.parseInt(sc.nextLine());
+
+                                try {
+                                    cd.withdraw(accountNumber, am);
+                                    System.out.println("Your Balance After Withdrawl.....");
+                                    System.out.println(cd.viewBalance(accountNumber));
+                                    System.out.println("------------------------------------");
+                                }
+                                catch(CustomerException e) {
+                                    System.out.println(e.getMessage());
+                                }
+                            }
 
                         }
                         break;
