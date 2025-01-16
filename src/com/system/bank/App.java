@@ -260,6 +260,11 @@ public class App {
                                     System.out.println(e.getMessage());
                                 }
                             }
+                            if(x==5) {
+                                System.out.println("Customer LogOut Successfully!!");
+                                System.out.println("Thank You for using our Banking Service..!!");
+                                m = false;
+                            }
 
                         }
                         break;
