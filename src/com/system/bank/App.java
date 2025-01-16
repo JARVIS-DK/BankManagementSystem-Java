@@ -2,6 +2,8 @@ package com.system.bank;
 
 import com.system.bank.dao.AccountantDao;
 import com.system.bank.dao.AccountantDaoImplementation;
+import com.system.bank.dao.CustomerDao;
+import com.system.bank.dao.CustomerDaoImplementation;
 import com.system.bank.entity.Accountant;
 import com.system.bank.entity.Customer;
 import com.system.bank.exception.AccountantException;
@@ -176,7 +178,30 @@ public class App {
                     } catch(AccountantException e) {
                         System.out.println(e.getMessage());
                     }
-                    break;
+//                    break;
+
+                case 2:
+                    System.out.println("CUSTOMER LOGIN----------------->>");
+                    System.out.println("---------------------------------");
+                    System.out.println("Enter UserName : ");
+                    String customerUserName = sc.nextLine();
+                    System.out.println("Enter Password : ");
+                    String customerPassword = sc.nextLine();
+                    System.out.println("Enter Account Number : ");
+                    int accountNumber = Integer.parseInt(sc.nextLine());
+
+                    CustomerDao cd = new CustomerDaoImplementation();
+
+
+                    try {
+                        Customer cus = cd.loginCustomer(customerUserName, customerPassword, accountNumber);
+                        System.out.println("Welcome : " + cus.getCustomerName());
+
+                    }
+                    catch(CustomerException e) {
+                        //e.printStackTrace();
+                        System.out.println(e.getMessage());
+                    }
             }
         }
     }
