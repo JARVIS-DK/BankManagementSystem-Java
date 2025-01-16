@@ -178,7 +178,7 @@ public class App {
                     } catch(AccountantException e) {
                         System.out.println(e.getMessage());
                     }
-//                    break;
+                    break; // case 1 break
 
                 case 2:
                     System.out.println("CUSTOMER LOGIN----------------->>");
@@ -196,6 +196,31 @@ public class App {
                     try {
                         Customer cus = cd.loginCustomer(customerUserName, customerPassword, accountNumber);
                         System.out.println("Welcome : " + cus.getCustomerName());
+
+                        boolean m = true;
+
+                        while(m) {
+
+                            System.out.println("-----------------------------------------------\r\n"
+                                    + "1. View Balance \r\n"
+                                    + "2. Deposit Money \r\n"
+                                    + "3. Withdraw Money \r\n"
+                                    + "4. Transfer Money \r\n"
+                                    + "5. Logout/r/n"
+                            );
+
+                            int x = Integer.parseInt(sc.nextLine());
+
+                            if(x==1) {
+                                System.out.println("-------------Balance-----------");
+                                System.out.println("Current Account Balance ------");
+                                System.out.println(cd.viewBalance(accountNumber));
+                                System.out.println("-------------------------------");
+                            }
+
+
+                        }
+                        break;
 
                     }
                     catch(CustomerException e) {

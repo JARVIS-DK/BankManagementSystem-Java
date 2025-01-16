@@ -49,4 +49,28 @@ public class CustomerDaoImplementation implements CustomerDao {
 
         return customer;
     }
+
+    @Override
+    public int viewBalance(int customerAccountNumber) throws CustomerException {
+
+        int bal = -1;
+
+        try(Connection conn = DataBaseConnection.provideConnection()) {
+            PreparedStatement ps = conn.prepareStatement("select customerBalance from account where customerAccountNumber = ?");
+
+            ps.setInt(1, customerAccountNumber);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                bal = rs.getInt("customerBalance");
+            }
+        }
+        catch(SQLException e) {
+            throw new CustomerException(e.getMessage());
+        }
+
+
+        return bal;
+    }
 }
