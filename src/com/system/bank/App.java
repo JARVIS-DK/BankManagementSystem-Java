@@ -235,11 +235,28 @@ public class App {
 
                                 try {
                                     cd.withdraw(accountNumber, am);
-                                    System.out.println("Your Balance After Withdrawl.....");
+                                    System.out.println("Your Balance After Withdrawal.....");
                                     System.out.println(cd.viewBalance(accountNumber));
                                     System.out.println("------------------------------------");
                                 }
                                 catch(CustomerException e) {
+                                    System.out.println(e.getMessage());
+                                }
+                            }
+                            if(x==4) {
+                                System.out.println("----------------Amount Transfer--------------");
+                                System.out.println("Enter Amount to Transfer: ");
+                                int t = Integer.parseInt(sc.nextLine());
+                                System.out.println("Enter Account Number to Transfer Amount:");
+                                int ac = Integer.parseInt(sc.nextLine());
+
+
+                                try {
+                                    cd.transfer(accountNumber, t, ac);
+                                    System.out.println("Amount Transferred Successfully!!");
+                                    System.out.println("--------------------------------");
+                                }
+                                catch(Exception e) {
                                     System.out.println(e.getMessage());
                                 }
                             }

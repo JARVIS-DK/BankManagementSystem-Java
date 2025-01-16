@@ -118,4 +118,40 @@ public class CustomerDaoImplementation implements CustomerDao {
 
         return vb + amount;
     }
+
+    @Override
+    public int transfer(int customerAccountNumber1, int amount, int customerAccountNumber2) throws CustomerException {
+
+
+        int vb = viewBalance(customerAccountNumber1);
+
+        if(vb > amount && checkAccount(customerAccountNumber2)) {
+            int wit = withdraw(customerAccountNumber1,amount);
+            int dep = deposit(customerAccountNumber2,amount);
+        }
+        else {
+            throw new CustomerException("Insuffient Balance..!!");
+        }
+        return 0;
+    }
+    private boolean checkAccount(int customerAccountNumber) {
+
+
+        try(Connection conn = DataBaseConnection.provideConnection()) {
+            PreparedStatement ps = conn.prepareStatement("select * from account where customerAccountNumber = ? ");
+
+            ps.setInt(1, customerAccountNumber);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                return true;
+            }
+        }
+        catch(SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return false;
+    }
 }

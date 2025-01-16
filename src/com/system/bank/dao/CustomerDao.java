@@ -12,4 +12,6 @@ public interface CustomerDao {
     public int deposit(int customerAccountNumber, int amount) throws CustomerException;
 
     public int withdraw(int customerAccountNumber, int amount) throws CustomerException;
+
+    public int transfer(int customerAccountNumber1 ,int amount, int customerAccountNumber2) throws CustomerException;
 }
