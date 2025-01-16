@@ -73,4 +73,24 @@ public class CustomerDaoImplementation implements CustomerDao {
 
         return bal;
     }
+
+    @Override
+    public int deposit(int customerAccountNumber, int amount) throws CustomerException {
+
+        int bal = -1;
+
+        try(Connection conn = DataBaseConnection.provideConnection()) {
+            PreparedStatement ps = conn.prepareStatement("update account set customerBalance = customerBalance + ? where customerAccountNumber = ?");
+
+            ps.setInt(1, amount);
+            ps.setInt(2, customerAccountNumber);
+
+            int rs = ps.executeUpdate();
+        }
+        catch(SQLException e) {
+            throw new CustomerException(e.getMessage());
+        }
+
+        return bal;
+    }
 }

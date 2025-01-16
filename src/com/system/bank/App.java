@@ -213,11 +213,21 @@ public class App {
 
                             if(x==1) {
                                 System.out.println("-------------Balance-----------");
-                                System.out.println("Current Account Balance ------");
+                                System.out.println("--- Current Account Balance ---");
                                 System.out.println(cd.viewBalance(accountNumber));
                                 System.out.println("-------------------------------");
                             }
 
+                            if(x==2) {
+                                System.out.println("------------Deposit----------");
+                                System.out.println("Enter the Amount to Deposit: ");
+                                int am = Integer.parseInt(sc.nextLine());
+                                cd.deposit(accountNumber, am);
+                                System.out.println("Successfully Deposited : " + am);
+                                System.out.println("Your Balance After Deposit");
+                                System.out.println(cd.viewBalance(accountNumber));
+                                System.out.println("-----------------------------");
+                            }
 
                         }
                         break;
